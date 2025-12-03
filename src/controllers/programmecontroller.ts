@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Programme from "../models/Programme";
+import mongoose from "mongoose";
 
 // ---------------------------------------------------------
 // GET ALL PROGRAMME DAYS
@@ -30,9 +31,12 @@ export const getProgrammeByDay = async (req: Request, res: Response) => {
   try {
     const idOrDay = req.params.id;
 
-    const programmeDay = await Programme.findOne({
-      $or: [{ _id: idOrDay }, { day: idOrDay }],
-    });
+    let programmeDay;
+    if (mongoose.isValidObjectId(idOrDay)) {
+      programmeDay = await Programme.findById(idOrDay);
+    } else {
+      programmeDay = await Programme.findOne({ day: idOrDay });
+    }
 
     if (!programmeDay) {
       return res.status(404).json({
@@ -54,6 +58,7 @@ export const getProgrammeByDay = async (req: Request, res: Response) => {
     });
   }
 };
+
 
 // ---------------------------------------------------------
 // CREATE NEW PROGRAMME DAY
