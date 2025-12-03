@@ -1,6 +1,6 @@
 // src/routes/authRoutes.ts
 import { Router } from "express";
-import { login } from "../controllers/authController";
+import { login, logout } from "../controllers/authController";
 
 const router = Router();
 
@@ -10,6 +10,8 @@ const router = Router();
 
 // POST /api/auth/login
 router.post("/login", login);
+
+router.post("/logout", logout);
 
 // Future routes (e.g., logout, register) can go here
 

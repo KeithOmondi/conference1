@@ -1,13 +1,14 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from "bcryptjs";
 
 export interface IUser extends Document {
   firstName: string;
   lastName: string;
   otherNames?: string;
-  name: string; // computed full name
+  name: string;
   email: string;
-  password: string;
+  password: string; // stored hashed PJ
+  station?: string;
   role: "judge" | "admin";
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
@@ -18,7 +19,7 @@ const userSchema = new Schema<IUser>(
     lastName: { type: String, required: true, trim: true },
     otherNames: { type: String, trim: true },
 
-    name: { type: String, required: true }, // seeder now sets this
+    name: { type: String, required: true },
 
     email: {
       type: String,
@@ -30,9 +31,14 @@ const userSchema = new Schema<IUser>(
 
     password: {
       type: String,
-      required: true,
+      required: true, // hashed PJ
       minlength: 6,
       select: false,
+    },
+
+    station: {
+      type: String,
+      trim: true,
     },
 
     role: {

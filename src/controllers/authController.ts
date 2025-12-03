@@ -4,53 +4,67 @@ import User from "../models/User";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken";
 
-// --------------------------------------------------
-// LOGIN
-// --------------------------------------------------
+// LOGIN WITH PJ ONLY
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, pj } = req.body;
-    console.log("Login attempt:", { email, pj });
+    const { pj } = req.body;
+    console.log("Login attempt with PJ:", pj);
 
-    if (!email || !pj) {
-      return res.status(400).json({ message: "Email and PJ number are required" });
+    if (!pj) {
+      return res.status(400).json({ message: "PJ number is required" });
     }
 
-    // Must select password manually!
-    const user = await User.findOne({ email }).select("+password");
+    // Fetch all users but include password
+    const users = await User.find().select("+password");
 
-    console.log("Found user:", user ? user.email : "No user found");
+    let matchedUser: any = null;
 
-    if (!user) {
-      return res.status(401).json({ message: "Invalid email or PJ number" });
+    for (const user of users) {
+      const isMatch = await bcrypt.compare(pj, user.password);
+      if (isMatch) {
+        matchedUser = user;
+        break;
+      }
     }
 
-    // Compare PJ (raw) with hashed password
-    const isMatch = await bcrypt.compare(pj, user.password);
-
-    console.log("Password match:", isMatch);
-
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid email or PJ number" });
+    if (!matchedUser) {
+      return res.status(401).json({ message: "Invalid PJ number" });
     }
 
-    // Generate JWT token
-    const token = generateToken(user._id.toString());
-    console.log("Generated token:", token);
+    console.log("User matched:", matchedUser.email);
 
-    res.status(200).json({
+    const token = generateToken(matchedUser._id.toString());
+
+    return res.status(200).json({
       message: "Login successful",
       token,
       user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
+        id: matchedUser._id,
+        name: matchedUser.name,
+        email: matchedUser.email,
+        role: matchedUser.role,
+        station: matchedUser.station,
       },
     });
 
   } catch (err) {
     console.error("Login error:", err);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 };
+
+
+// LOGOUT USER
+export const logout = async (req: Request, res: Response) => {
+  try {
+    // For JWT-based auth, logout is handled on the client by deleting the token.
+    // We still return success so the frontend can clear it.
+
+    return res.status(200).json({ message: "Logout successful" });
+
+  } catch (err) {
+    console.error("Logout error:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
