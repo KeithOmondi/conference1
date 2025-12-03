@@ -1,32 +1,48 @@
-// src/app.ts
-import express, { Application } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { errorHandler } from "./middlewares/errorMiddleware";
-import authRoutes from "./routes/authRoutes"
-import programmesRoutes from "./routes/programRoutes"
+import authRoutes from "./routes/authRoutes";
+import programmesRoutes from "./routes/programRoutes";
 
 const app: Application = express();
 
-// Middleware
+// Middleware to parse JSON
 app.use(express.json());
-// Allow your frontend origin
+
+// CORS configuration
+const allowedOrigins = [
+  "https://conference-mm36.vercel.app", // deployed frontend
+  "http://localhost:5173",              // local dev
+];
+
 app.use(
   cors({
-    origin: ["http://conference-mm36.vercel.app", "http://localhost:5173"], // <-- Replace with your frontend URL
-    credentials: true, // If you use cookies or auth headers
+    origin: allowedOrigins,
+    credentials: true, // allow cookies and auth headers
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
+// Handle preflight requests for all routes
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (req.method === "OPTIONS") {
+    res.sendStatus(204); // No Content
+  } else {
+    next();
+  }
+});
+
+// Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/programs", programmesRoutes);
 
-// Test routed
-app.get("/", (req, res) => {
+// Test route
+app.get("/", (req: Request, res: Response) => {
   res.send("Judges Conference API is running...");
 });
 
-
-// Error handler must be LAST
+// Error handler (must be last)
 app.use(errorHandler);
 
 export default app;
