@@ -12,7 +12,7 @@ app.use(express.json());
 // Allow your frontend origin
 app.use(
   cors({
-    origin: "http://localhost:5173", // <-- Replace with your frontend URL
+    origin: ["http://conference-mm36.vercel.app", "http://localhost:5173"], // <-- Replace with your frontend URL
     credentials: true, // If you use cookies or auth headers
   })
 );
