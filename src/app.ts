@@ -3,6 +3,7 @@ import cors from "cors";
 import { errorHandler } from "./middlewares/errorMiddleware";
 import authRoutes from "./routes/authRoutes";
 import programmesRoutes from "./routes/programRoutes";
+import presenterRoutes from "./routes/presenterRoutes";
 
 const app: Application = express();
 
@@ -36,6 +37,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/programs", programmesRoutes);
+app.use("/api/v1/presenters", presenterRoutes);
 
 // Test route
 app.get("/", (req: Request, res: Response) => {

@@ -4,7 +4,7 @@ import User from "../models/User";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken";
 
-// LOGIN WITH PJ ONLY
+// LOGIN WITH PJ ONLY — OPTIMIZED (NO INDEX REQUIRED)
 export const login = async (req: Request, res: Response) => {
   try {
     const { pj } = req.body;
@@ -14,18 +14,20 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "PJ number is required" });
     }
 
-    // Fetch all users but include password
-    const users = await User.find().select("+password");
+    // Fetch all users with password included (lean for speed)
+    const users = await User.find().select("+password").lean();
 
     let matchedUser: any = null;
 
-    for (const user of users) {
-      const isMatch = await bcrypt.compare(pj, user.password);
-      if (isMatch) {
-        matchedUser = user;
-        break;
-      }
-    }
+    // Optimization: avoid sequential bcrypt calls by batching them
+    await Promise.all(
+      users.map(async (u) => {
+        if (!matchedUser) {
+          const ok = await bcrypt.compare(pj, u.password);
+          if (ok) matchedUser = u;
+        }
+      })
+    );
 
     if (!matchedUser) {
       return res.status(401).json({ message: "Invalid PJ number" });
@@ -57,9 +59,6 @@ export const login = async (req: Request, res: Response) => {
 // LOGOUT USER
 export const logout = async (req: Request, res: Response) => {
   try {
-    // For JWT-based auth, logout is handled on the client by deleting the token.
-    // We still return success so the frontend can clear it.
-
     return res.status(200).json({ message: "Logout successful" });
 
   } catch (err) {
@@ -67,4 +66,6 @@ export const logout = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+
 

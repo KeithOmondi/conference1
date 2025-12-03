@@ -4,7 +4,8 @@ import Programme from "./models/Programme";
 const mongoose = require("mongoose");
 
 // ---------------- DATABASE CONFIG ----------------
-const MONGO_URI = "mongodb+srv://denniskeith62_db_user:keith.@cluster0.g4l2huj.mongodb.net/?appName=Cluster0"; // change this
+const MONGO_URI =
+  "mongodb+srv://denniskeith62_db_user:keith.@cluster0.g4l2huj.mongodb.net/?appName=Cluster0"; // change this
 
 // ---------------- PROGRAMME SEED DATA -------------
 

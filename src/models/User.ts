@@ -7,7 +7,8 @@ export interface IUser extends Document {
   otherNames?: string;
   name: string;
   email: string;
-  password: string; // stored hashed PJ
+  password: string;
+  pj: string; // NEW: login identifier
   station?: string;
   role: "judge" | "admin";
   comparePassword(candidatePassword: string): Promise<boolean>;
@@ -29,9 +30,17 @@ const userSchema = new Schema<IUser>(
       trim: true,
     },
 
+    pj: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true, // 🚀 critical for fast login
+      trim: true,
+    },
+
     password: {
       type: String,
-      required: true, // hashed PJ
+      required: true,
       minlength: 6,
       select: false,
     },

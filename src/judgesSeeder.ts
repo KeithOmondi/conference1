@@ -647,7 +647,7 @@ export const judgesData = [
 {
   pj: "63244",
   lastName: "Mutheu",
-  firstName: "Carol",
+  firstName: "Hon. Carol",
   otherNames: "Ndinda",
   gender: "FEMALE",
   email: "carol.mutheu@court.go.ke",
@@ -658,7 +658,7 @@ export const judgesData = [
 {
   pj: "63321",
   lastName: "Owino",
-  firstName: "James",
+  firstName: "Hon. James",
   otherNames: "Ouma",
   gender: "MALE",
   email: "james.owino@court.go.ke",
@@ -669,7 +669,7 @@ export const judgesData = [
 {
   pj: "63409",
   lastName: "Kilonzo",
-  firstName: "George",
+  firstName: "Hon. George",
   otherNames: "Mutua",
   gender: "MALE",
   email: "george.kilonzo@court.go.ke",
@@ -680,7 +680,7 @@ export const judgesData = [
 {
   pj: "63488",
   lastName: "Cherop",
-  firstName: "Judith",
+  firstName: "Hon. Judith",
   otherNames: "Jebet",
   gender: "FEMALE",
   email: "judith.cherop@court.go.ke",
@@ -691,7 +691,7 @@ export const judgesData = [
 {
   pj: "63510",
   lastName: "Barongo",
-  firstName: "Kennedy",
+  firstName: "Hon. Kennedy",
   otherNames: "Marita",
   gender: "MALE",
   email: "kennedy.barongo@court.go.ke",
@@ -702,7 +702,7 @@ export const judgesData = [
 {
   pj: "63655",
   lastName: "Wambua",
-  firstName: "Joyce",
+  firstName: "Hon. Joyce",
   otherNames: "Ndunge",
   gender: "FEMALE",
   email: "joyce.wambua@court.go.ke",
@@ -713,7 +713,7 @@ export const judgesData = [
 {
   pj: "63729",
   lastName: "Mogaka",
-  firstName: "Henry",
+  firstName: "Hon. Henry",
   otherNames: "Onsongo",
   gender: "MALE",
   email: "henry.mogaka@court.go.ke",
@@ -724,7 +724,7 @@ export const judgesData = [
 {
   pj: "63814",
   lastName: "Kariuki",
-  firstName: "Lilian",
+  firstName: "Hon. Lilian",
   otherNames: "Wairimu",
   gender: "FEMALE",
   email: "lilian.kariuki@court.go.ke",
@@ -735,7 +735,7 @@ export const judgesData = [
 {
   pj: "63977",
   lastName: "Oseko",
-  firstName: "David",
+  firstName: "Hon. David",
   otherNames: "Nyambega",
   gender: "MALE",
   email: "david.oseko@court.go.ke",
@@ -746,7 +746,7 @@ export const judgesData = [
 {
   pj: "64033",
   lastName: "Kiplangat",
-  firstName: "Solomon",
+  firstName: "Hon. Solomon",
   otherNames: "Koech",
   gender: "MALE",
   email: "solomon.kiplangat@court.go.ke",
@@ -757,7 +757,7 @@ export const judgesData = [
 {
   pj: "64119",
   lastName: "Nyaga",
-  firstName: "Beatrice",
+  firstName: "Hon. Beatrice",
   otherNames: "Muthoni",
   gender: "FEMALE",
   email: "beatrice.nyaga@court.go.ke",
@@ -768,7 +768,7 @@ export const judgesData = [
 {
   pj: "64288",
   lastName: "Opiyo",
-  firstName: "Daniel",
+  firstName: "Hon. Daniel",
   otherNames: "Ooko",
   gender: "MALE",
   email: "daniel.opiyo@court.go.ke",
@@ -779,7 +779,7 @@ export const judgesData = [
 {
   pj: "64353",
   lastName: "Mwikali",
-  firstName: "Ruth",
+  firstName: "Hon. Ruth",
   otherNames: "Syombua",
   gender: "FEMALE",
   email: "ruth.mwikali@court.go.ke",
@@ -790,7 +790,7 @@ export const judgesData = [
 {
   pj: "64402",
   lastName: "Ochieng",
-  firstName: "Thomas",
+  firstName: "Hon. Thomas",
   otherNames: "Oduor",
   gender: "MALE",
   email: "thomas.ochieng@court.go.ke",
@@ -801,7 +801,7 @@ export const judgesData = [
 {
   pj: "64510",
   lastName: "Chepkemoi",
-  firstName: "Mary",
+  firstName: "Hon. Mary",
   otherNames: "Jemutai",
   gender: "FEMALE",
   email: "mary.chepkemoi@court.go.ke",
@@ -812,7 +812,7 @@ export const judgesData = [
 {
   pj: "64641",
   lastName: "Muli",
-  firstName: "Benard",
+  firstName: "Hon. Benard",
   otherNames: "Kyalo",
   gender: "MALE",
   email: "benard.muli@court.go.ke",
@@ -823,13 +823,24 @@ export const judgesData = [
 {
   pj: "64790",
   lastName: "Atieno",
-  firstName: "Lucy",
+  firstName: "Hon. Lucy",
   otherNames: "Akinyi",
   gender: "FEMALE",
   email: "lucy.atieno@court.go.ke",
   phone: "0722901122",
   idNo: "22881190",
   station: "Migori"
+},
+{
+  pj: "43244",
+  lastName: "Otieno",
+  firstName: "Hon. Clara",
+  otherNames: "Omondi",
+  gender: "FEMALE",
+  email: "claraotieno23@gmail.com ",
+  phone: "",
+  idNo: "",
+  station: "High Court"
 }
 
 ];
