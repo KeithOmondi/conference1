@@ -28,7 +28,8 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Invalid PJ number" });
     }
 
-    const token = generateToken(user._id.toString());
+    const token = generateToken(user._id.toString(), user.role);
+
 
     return res.status(200).json({
       message: "Login successful",
@@ -57,6 +58,23 @@ export const logout = async (req: Request, res: Response) => {
 
   } catch (err) {
     console.error("Logout error:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+// FETCH ALL USERS — For dropdowns, admin-only
+export const fetchAllUsers = async (req: Request, res: Response) => {
+  try {
+    // Optionally, you could add role filtering: only judges/presenters
+    const users = await User.find({}, "firstName lastName email pj role"); // select only needed fields
+
+    return res.status(200).json({
+      message: "Users fetched successfully",
+      users,
+    });
+  } catch (err) {
+    console.error("Fetch all users error:", err);
     return res.status(500).json({ message: "Server error" });
   }
 };

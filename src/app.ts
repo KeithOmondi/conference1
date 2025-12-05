@@ -4,6 +4,7 @@ import { errorHandler } from "./middlewares/errorMiddleware";
 import authRoutes from "./routes/authRoutes";
 import programmesRoutes from "./routes/programRoutes";
 import presenterRoutes from "./routes/presenterRoutes";
+import presentationRoutes from "./routes/presentationRoutes"
 
 const app: Application = express();
 
@@ -38,6 +39,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/programs", programmesRoutes);
 app.use("/api/v1/presenters", presenterRoutes);
+app.use("/api/v1/presentations", presentationRoutes);
 
 // Test route
 app.get("/", (req: Request, res: Response) => {
