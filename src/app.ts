@@ -14,7 +14,7 @@ app.use(express.json());
 
 // CORS configuration
 const allowedOrigins = [
-  "https://conference-mm36.vercel.app", // deployed frontend
+  "https://highcourtannualsummit.vercel.app", // deployed frontend
   "http://localhost:5173",              // local dev
 ];
 
