@@ -1194,6 +1194,19 @@ export const judgesData = [
     img: "https://highcourt.judiciary.go.ke/wp-content/uploads/2025/07/rhc-website-1024x1024.png",
     password: "43244",
   },
+  {
+    pj: "43211",
+    lastName: "Omondi",
+    firstName: "Hon. Keith",
+    otherNames: "Otieno",
+    gender: "MALE",
+    email: "denniskeith62@gmail.com",
+    phone: "",
+    idno: "",
+    station: "High Court",
+    img: "https://highcourt.judiciary.go.ke/wp-content/uploads/2025/07/rhc-website-1024x1024.png",
+    password: "43211",
+  },
 ];
 
 const seedJudges = async () => {
