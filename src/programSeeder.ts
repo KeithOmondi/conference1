@@ -22,163 +22,234 @@ const programmeData = [
     ],
   },
 
+  // ----------------------------------------------------
   {
     day: "Day Two",
     date: "Monday, 8th December 2025",
     items: [
+      // SESSION ONE
+      {
+        time: "-",
+        activity: "SESSION ONE",
+        facilitator: "Session Chair: Duncan Okello, KJA",
+      },
+
       {
         time: "8:00–8:30AM",
         activity: "Registration of participants",
         facilitator: "Secretariat",
       },
+
       {
-        time: "-",
+        time: "8:30–9:00AM",
         activity: "National Anthem / EAC Anthem / Prayer",
-        facilitator: "Lady Justice Alice Bett",
+        facilitator: "Session Chair / Lady Justice Alice Bett",
       },
 
       {
-        time: "8:30–9:45AM",
-        activity: "Remarks - Chairperson ICJ Kenya (Ms Christine Alai)",
-        facilitator: "-",
-      },
-      {
-        time: "8:30–9:45AM",
-        activity: "Remarks - Chairperson EACC (Bishop Dr. David Oginde)",
-        facilitator: "-",
-      },
-      {
-        time: "8:30–9:45AM",
+        time: "9:00–10:00AM",
         activity:
-          "Remarks - Law Society of Kenya President (Ms Faith Odhiambo)",
-        facilitator: "-",
-      },
-      {
-        time: "8:30–9:45AM",
-        activity: "Remarks - Chief Registrar (Hon. Winfrida Mokaya)",
-        facilitator: "-",
-      },
-      {
-        time: "8:30–9:45AM",
-        activity: "Remarks - SCJLHR (Senator Hillary Sigei)",
-        facilitator: "-",
-      },
-      {
-        time: "8:30–9:45AM",
-        activity: "Remarks - Principal Judge (Justice Eric Ogola)",
-        facilitator: "-",
+          "Framing Presentation: Ethical Leadership & the Politics of Human Dignity – Lessons for Judiciaries in Africa",
+        facilitator: "Mr. Brian Kagoro",
       },
 
-      {
-        time: "9:45–10:15AM",
-        activity: "Keynote address & official opening by CJ Martha Koome",
-        facilitator: "Chief Guest",
-      },
-      {
-        time: "10:15–11:00AM",
-        activity: "Photo Session & Health Break",
-        facilitator: "-",
-      },
+      { time: "10:00–11:00AM", activity: "Plenary Session", facilitator: "-" },
 
+      { time: "11:00–11:30AM", activity: "Tea Break", facilitator: "-" },
+
+      // Remarks section
       {
-        time: "11:00AM–12:30PM",
-        activity: "Presentation: Ethical Leadership – Mr Brian Kagoro",
+        time: "11:30AM–12:30PM",
+        activity: "Remarks",
         facilitator:
-          "Session Chair: Justice Esther Maina / Justice Margaret Muigai",
+          "ICJ Chair (Christine Alai), KNCHR Chair (Claris Ogangah), EACC (Rep), LSK President (Faith Odhiambo), Chief Registrar (Hon. Winfrida Mokaya), Principal Judge (Justice Eric Ogola)",
       },
-      { time: "12:30–1:00PM", activity: "Plenary Session", facilitator: "-" },
+
+      {
+        time: "12:30–1:00PM",
+        activity:
+          "Keynote Address & Official Opening by the Chief Guest – Senator Hillary Sigei, CBS, MP (Chairperson, Senate JLAC Committee)",
+        facilitator: "-",
+      },
+
       {
         time: "1:00–2:00PM",
-        activity: "Lunch Break",
-        facilitator: "Lady Justice Lucy Njuguna",
+        activity: "Photo Session & Lunch Break",
+        facilitator: "-",
+      },
+
+      // SESSION TWO
+      {
+        time: "-",
+        activity: "SESSION TWO",
+        facilitator: "Session Chair: Lady Justice Esther Maina",
       },
 
       {
         time: "2:00–3:00PM",
-        activity: "Public Trust & Ethical Leadership – Prof Gabrielle Lynch",
-        facilitator: "-",
+        activity:
+          "Public Trust & Ethical Leadership in Kenya’s Courts: Evidence from Two Decades of Data",
+        facilitator: "Prof. Gabrielle Lynch",
       },
+
+      { time: "3:00–3:30PM", activity: "Plenary Session", facilitator: "-" },
+
       {
-        time: "3:00–3:30PM",
-        activity: "Plenary Session",
-        facilitator: "Justice Robert Limo",
+        time: "3:30–4:00PM",
+        activity: "Partnership with the Judiciary on Corruption Prevention",
+        facilitator: "Ms. Judith Langat",
       },
 
       {
-        time: "3:30–4:30PM",
-        activity: "Corruption Prevention Partnership",
-        facilitator: "EACC",
-      },
-      { time: "4:30–5:00PM", activity: "Plenary Session", facilitator: "-" },
-      {
-        time: "5:00PM",
+        time: "4:00PM",
         activity: "Tea Break & End of Day Two",
         facilitator: "-",
       },
     ],
   },
 
+  // ----------------------------------------------------
   {
     day: "Day Three",
     date: "Tuesday, 9th December 2025",
     items: [
+      // SESSION THREE
+      {
+        time: "-",
+        activity: "SESSION THREE",
+        facilitator: "Session Chair: Justice Robert Limo",
+      },
+
       {
         time: "8:30–9:00AM",
-        activity: "Registration",
+        activity: "Registration of participants",
         facilitator: "Secretariat",
       },
+
       {
         time: "9:00–10:30AM",
         activity:
-          "Ethical Reimagination of the 2010 Constitution – Mr Bobby Mkangi",
-        facilitator: "Session Chair: Justice Edward Muriithi",
+          "The Ethical Reimagination of the 2010 Constitution: Unfinished Business of Chapter 6",
+        facilitator: "Mr. Bobby Mkangi",
       },
+
       { time: "10:30–11:00AM", activity: "Plenary Session", facilitator: "-" },
+
       { time: "11:00–11:30AM", activity: "Tea Break", facilitator: "-" },
+
+      // SESSION FOUR
+      {
+        time: "-",
+        activity: "SESSION FOUR",
+        facilitator: "Session Chair: Lady Justice Florence Muchemi",
+      },
+
       {
         time: "11:30–12:30PM",
-        activity: "Anti-Corruption Investigations – EACC Representative",
-        facilitator: "Session Chair: Justice Florence Muchemi",
+        activity:
+          "Emerging Jurisprudence: Impact on Implementation of Ethics & Integrity Requirements",
+        facilitator: "Mr. Patrick Owiny",
       },
+
       { time: "12:30–1:00PM", activity: "Plenary Session", facilitator: "-" },
+
       { time: "1:00–2:00PM", activity: "Lunch Break", facilitator: "-" },
+
+      // SESSION FIVE
       {
-        time: "2:00–3:00PM",
-        activity: "Tax & Debt Accountability – Mr Alexander Riithi",
-        facilitator: "Session Chair: Justice Chacha Mwita",
+        time: "-",
+        activity: "SESSION FIVE",
+        facilitator: "Session Chair: Lady Justice Lucy Njuguna",
       },
-      { time: "3:00–3:30PM", activity: "Plenary Session", facilitator: "-" },
+
+      {
+        time: "2:00–4:00PM",
+        activity:
+          "Panel on Ethical Leadership in Public Finance: Human Rights Dimensions of Taxation & Debt Management",
+        facilitator: "Mr. Alexander Riithi",
+      },
+
+      {
+        time: "4:00PM",
+        activity: "Tea Break & End of Day Three",
+        facilitator: "-",
+      },
     ],
   },
 
+  // ----------------------------------------------------
   {
     day: "Day Four",
     date: "Wednesday, 10th December 2025",
     items: [
+      // SESSION SIX
       {
-        time: "8:00–8:30AM",
-        activity: "Registration",
+        time: "-",
+        activity: "SESSION SIX",
+        facilitator: "Session Chair: Lady Justice Helene Namisi",
+      },
+
+      {
+        time: "8:30–9:00AM",
+        activity: "Registration of participants",
         facilitator: "Secretariat",
       },
+
       {
-        time: "8:30–9:30AM",
-        activity: "Effective Communication",
-        facilitator: "DCRJ & Judiciary Spokesperson",
+        time: "9:00–10:00AM",
+        activity:
+          "Driving Excellence in the High Court: Understanding KPIs, Timelines & Performance Expectations under STAJ",
+        facilitator: "Dr. Joseph Osewe",
       },
-      { time: "9:30–10:00AM", activity: "Plenary Session", facilitator: "-" },
-      { time: "10:00–10:30AM", activity: "Tea Break", facilitator: "-" },
+
+      { time: "10:00–10:30AM", activity: "Plenary Session", facilitator: "-" },
+
+      { time: "10:30–11:00AM", activity: "Tea Break", facilitator: "-" },
+
+      // SESSION SEVEN
       {
-        time: "11:00AM–1:00PM",
-        activity: "Financial Wellness",
-        facilitator: "Sheria Sacco",
+        time: "-",
+        activity: "SESSION SEVEN",
+        facilitator: "Session Chair: Justice Francis Gikonyo",
       },
-      { time: "1:00–2:00PM", activity: "Closing Ceremony", facilitator: "-" },
-      { time: "2:00–3:00PM", activity: "Lunch", facilitator: "-" },
+
       {
-        time: "3:00–4:00PM",
-        activity: "Closed Door Session of High Court Judges",
+        time: "11:00–12:00PM",
+        activity:
+          "Enhancing Public Trust through Communication: Judges’ Roles in Advancing STAJ & the Right to Information",
+        facilitator: "Hon. Paul N. Maina",
+      },
+
+      { time: "12:00–12:30PM", activity: "Plenary Session", facilitator: "-" },
+
+      {
+        time: "12:30–1:00PM",
+        activity: "Remarks",
+        facilitator:
+          "PS, Internal Security (Dr. Raymond Omollo) / Principal Judge (Justice Eric Ogola)",
+      },
+
+      {
+        time: "1:00–2:00PM",
+        activity:
+          "Address & Official Closing by Lady Justice Martha Koome – Chief Justice & President of the Supreme Court",
+        facilitator: "-",
+      },
+
+      // SESSION EIGHT
+      {
+        time: "-",
+        activity: "SESSION EIGHT",
         facilitator: "Session Chair: Justice Eric Ogola",
       },
+
+      {
+        time: "2:00–4:00PM",
+        activity:
+          "Reassessing Our Impact: Judicial Reflection & Strategic Reorientation (Closed Door – High Court Judges)",
+        facilitator: "-",
+      },
+
       {
         time: "4:00PM",
         activity: "Tea Break & End of Day Four",
@@ -187,6 +258,7 @@ const programmeData = [
     ],
   },
 
+  // ----------------------------------------------------
   {
     day: "Day Five",
     date: "Thursday, 11th December 2025",
@@ -196,6 +268,7 @@ const programmeData = [
         activity: "Breakfast & Checkout",
         facilitator: "Secretariat",
       },
+      { time: "1:00–2:00PM", activity: "Lunch", facilitator: "-" },
     ],
   },
 ];

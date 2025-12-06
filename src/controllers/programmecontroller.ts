@@ -3,11 +3,13 @@ import Programme from "../models/Programme";
 import mongoose from "mongoose";
 
 // ---------------------------------------------------------
-// GET ALL PROGRAMME DAYS
+// GET ALL PROGRAMME DAYS  (sorted by actual date, not _id)
 // ---------------------------------------------------------
 export const getProgramme = async (req: Request, res: Response) => {
   try {
-    const programme = await Programme.find().sort({ _id: 1 });
+    const programme = await Programme.find()
+      .sort({ date: 1 }) // ensure correct chronological order
+      .lean(); // faster and cleaner results
 
     return res.status(200).json({
       success: true,
@@ -25,17 +27,21 @@ export const getProgramme = async (req: Request, res: Response) => {
 };
 
 // ---------------------------------------------------------
-// GET SPECIFIC DAY BY ID OR DAY NAME
+// GET SPECIFIC PROGRAMME DAY (by ID or Day name)
+// Case-insensitive day name search
 // ---------------------------------------------------------
 export const getProgrammeByDay = async (req: Request, res: Response) => {
   try {
     const idOrDay = req.params.id;
 
     let programmeDay;
+
     if (mongoose.isValidObjectId(idOrDay)) {
       programmeDay = await Programme.findById(idOrDay);
     } else {
-      programmeDay = await Programme.findOne({ day: idOrDay });
+      programmeDay = await Programme.findOne({
+        day: { $regex: new RegExp(`^${idOrDay}$`, "i") }, // case-insensitive
+      });
     }
 
     if (!programmeDay) {
@@ -59,12 +65,20 @@ export const getProgrammeByDay = async (req: Request, res: Response) => {
   }
 };
 
-
 // ---------------------------------------------------------
 // CREATE NEW PROGRAMME DAY
+// Automatically normalizes session entries
 // ---------------------------------------------------------
 export const createProgrammeDay = async (req: Request, res: Response) => {
   try {
+    // Clean items: if isSession = true, remove time field
+    if (Array.isArray(req.body.items)) {
+      req.body.items = req.body.items.map((item: any) => ({
+        ...item,
+        time: item.isSession ? undefined : item.time,
+      }));
+    }
+
     const newDay = await Programme.create(req.body);
 
     return res.status(201).json({
@@ -83,9 +97,17 @@ export const createProgrammeDay = async (req: Request, res: Response) => {
 
 // ---------------------------------------------------------
 // UPDATE PROGRAMME DAY
+// Also ensures sessions never have a time accidentally
 // ---------------------------------------------------------
 export const updateProgrammeDay = async (req: Request, res: Response) => {
   try {
+    if (req.body.items && Array.isArray(req.body.items)) {
+      req.body.items = req.body.items.map((item: any) => ({
+        ...item,
+        time: item.isSession ? undefined : item.time,
+      }));
+    }
+
     const programmeDay = await Programme.findByIdAndUpdate(
       req.params.id,
       req.body,

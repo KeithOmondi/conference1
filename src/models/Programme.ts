@@ -2,9 +2,10 @@ import { Schema, model, Document } from "mongoose";
 
 // ---------- INTERFACES ----------
 export interface IProgrammeItem {
-  time: string;
+  time?: string; // optional because sessions may not have time
   activity: string;
   facilitator?: string;
+  isSession?: boolean; // NEW: identify session blocks
 }
 
 export interface IProgrammeDay extends Document {
@@ -15,9 +16,10 @@ export interface IProgrammeDay extends Document {
 
 // ---------- SCHEMAS ----------
 const ProgrammeItemSchema = new Schema<IProgrammeItem>({
-  time: { type: String, required: true },
+  time: { type: String }, // optional now
   activity: { type: String, required: true },
   facilitator: { type: String, default: "-" },
+  isSession: { type: Boolean, default: false }, // NEW FIELD
 });
 
 const ProgrammeDaySchema = new Schema<IProgrammeDay>({

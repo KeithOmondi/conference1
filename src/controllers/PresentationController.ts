@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 import Presentation from "../models/Presentation";
 import User from "../models/User";
 
+interface AuthRequest extends Request {
+  user?: any;
+}
+
 // -------------------------------------------------------------
 // CREATE — Admin uploads a presentation & assigns a presenter
 // -------------------------------------------------------------
@@ -66,24 +70,57 @@ export const getAllPresentations = async (req: Request, res: Response) => {
 // -------------------------------------------------------------
 // GET MINE — Judge sees only their presentations
 // -------------------------------------------------------------
-export const getMyPresentations = async (req: Request, res: Response) => {
+export const getMyPresentations = async (req: AuthRequest, res: Response) => {
   try {
     if (!req.user) {
-      return res.status(401).json({ status: "fail", message: "Unauthorized" });
+      return res.status(401).json({
+        status: "fail",
+        message: "You must be logged in.",
+      });
     }
 
-    const presentations = await Presentation.find({
-      presenter: req.user._id,
-    });
+    const userId = req.user._id;
+    const role = req.user.role;
 
-    return res.json({
+    let presentations;
+
+    // 🟦 ADMIN — sees ALL presentations they uploaded
+    if (role === "admin") {
+      presentations = await Presentation.find({ uploadedBy: userId })
+        .populate("presenter", "name role email")
+        .populate("uploadedBy", "name role email")
+        .sort({ createdAt: -1 });
+    }
+
+    // 🟩 JUDGE — sees all presentations assigned to them
+    else if (role === "judge") {
+      presentations = await Presentation.find({ presenter: userId })
+        .populate("presenter", "name role email")
+        .populate("uploadedBy", "name role email")
+        .sort({ createdAt: -1 });
+    }
+
+    // ❌ Unknown role
+    else {
+      return res.status(403).json({
+        status: "fail",
+        message: "Your role does not have access to presentations.",
+      });
+    }
+
+    return res.status(200).json({
       status: "success",
+      count: presentations.length,
       presentations,
     });
   } catch (error: any) {
-    return res.status(500).json({ status: "error", message: error.message });
+    return res.status(500).json({
+      status: "error",
+      message: error.message || "Server error while fetching presentations.",
+    });
   }
 };
+
 
 // -------------------------------------------------------------
 // GET BY ID — Judge can view only theirs; Admin can view all
