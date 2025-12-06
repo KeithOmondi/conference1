@@ -6,6 +6,7 @@ import {
   updateProgrammeDay,
   deleteProgrammeDay,
 } from "../controllers/programmecontroller";
+import { protect, restrictTo } from "../middlewares/authMiddleware";
 
 const router = Router();
 
@@ -13,19 +14,19 @@ const router = Router();
 // PROGRAMME ROUTES
 // ---------------------------------------------------------
 
-// Get all programme days
+// Get ALL programme days
 router.get("/get", getProgramme);
 
-// Get a single programme day by ID or by day name
+// Get ONE programme day (by ObjectId or dayLabel)
 router.get("/get/:id", getProgrammeByDay);
 
-// Create a new programme day (Admin action)
-router.post("/create", createProgrammeDay);
+// Create a new programme day
+router.post("/create", protect, restrictTo("admin"), createProgrammeDay);
 
-// Update a programme day
-router.put("/update/:id", updateProgrammeDay);
+// Update programme day
+router.put("/update/:id", protect, restrictTo("admin"), updateProgrammeDay);
 
-// Delete a programme day
-router.delete("/delete/:id", deleteProgrammeDay);
+// Delete programme day
+router.delete("/delete/:id", protect, restrictTo("admin"), deleteProgrammeDay);
 
 export default router;

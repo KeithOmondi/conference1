@@ -1,15 +1,18 @@
 import { Request, Response } from "express";
-import Programme from "../models/Programme";
 import mongoose from "mongoose";
+import ProgrammeDayModel from "../models/Programme";
 
-// ---------------------------------------------------------
-// GET ALL PROGRAMME DAYS  (sorted by actual date, not _id)
-// ---------------------------------------------------------
+/* =========================================================
+   GET ALL PROGRAMME DAYS  (sorted by actual date)
+   ========================================================= */
+/* =========================================================
+   GET ALL PROGRAMME DAYS (sorted by date)
+   ========================================================= */
 export const getProgramme = async (req: Request, res: Response) => {
   try {
-    const programme = await Programme.find()
-      .sort({ date: 1 }) // ensure correct chronological order
-      .lean(); // faster and cleaner results
+    const programme = await ProgrammeDayModel.find()
+      .sort({ date: 1 })
+      .lean();
 
     return res.status(200).json({
       success: true,
@@ -26,21 +29,24 @@ export const getProgramme = async (req: Request, res: Response) => {
   }
 };
 
-// ---------------------------------------------------------
-// GET SPECIFIC PROGRAMME DAY (by ID or Day name)
-// Case-insensitive day name search
-// ---------------------------------------------------------
+
+
+/* =========================================================
+   GET PROGRAMME DAY BY ID OR BY dayLabel (e.g. "Day Two")
+   ========================================================= */
+/* =========================================================
+   GET PROGRAMME DAY BY ID OR BY dayLabel ("Day One")
+   ========================================================= */
 export const getProgrammeByDay = async (req: Request, res: Response) => {
   try {
     const idOrDay = req.params.id;
-
     let programmeDay;
 
     if (mongoose.isValidObjectId(idOrDay)) {
-      programmeDay = await Programme.findById(idOrDay);
+      programmeDay = await ProgrammeDayModel.findById(idOrDay);
     } else {
-      programmeDay = await Programme.findOne({
-        day: { $regex: new RegExp(`^${idOrDay}$`, "i") }, // case-insensitive
+      programmeDay = await ProgrammeDayModel.findOne({
+        dayLabel: { $regex: new RegExp(`^${idOrDay}$`, "i") },
       });
     }
 
@@ -65,21 +71,25 @@ export const getProgrammeByDay = async (req: Request, res: Response) => {
   }
 };
 
-// ---------------------------------------------------------
-// CREATE NEW PROGRAMME DAY
-// Automatically normalizes session entries
-// ---------------------------------------------------------
+/* =========================================================
+   CREATE PROGRAMME DAY
+   Ensures nested sessions + activities are valid
+   ========================================================= */
 export const createProgrammeDay = async (req: Request, res: Response) => {
   try {
-    // Clean items: if isSession = true, remove time field
-    if (Array.isArray(req.body.items)) {
-      req.body.items = req.body.items.map((item: any) => ({
-        ...item,
-        time: item.isSession ? undefined : item.time,
-      }));
+    const body = req.body;
+
+    if (!body.dayLabel || !body.date) {
+      return res.status(400).json({
+        success: false,
+        message: "dayLabel and date are required",
+      });
     }
 
-    const newDay = await Programme.create(req.body);
+    // Normalize arrays
+    body.sessions = Array.isArray(body.sessions) ? body.sessions : [];
+
+    const newDay = await ProgrammeDayModel.create(body);
 
     return res.status(201).json({
       success: true,
@@ -95,26 +105,29 @@ export const createProgrammeDay = async (req: Request, res: Response) => {
   }
 };
 
-// ---------------------------------------------------------
-// UPDATE PROGRAMME DAY
-// Also ensures sessions never have a time accidentally
-// ---------------------------------------------------------
+
+/* =========================================================
+   UPDATE PROGRAMME DAY
+   Ensures nested structure integrity
+   ========================================================= */
 export const updateProgrammeDay = async (req: Request, res: Response) => {
   try {
-    if (req.body.items && Array.isArray(req.body.items)) {
-      req.body.items = req.body.items.map((item: any) => ({
-        ...item,
-        time: item.isSession ? undefined : item.time,
-      }));
+    const body = req.body;
+
+    if (body.sessions && !Array.isArray(body.sessions)) {
+      return res.status(400).json({
+        success: false,
+        message: "sessions must be an array",
+      });
     }
 
-    const programmeDay = await Programme.findByIdAndUpdate(
+    const updated = await ProgrammeDayModel.findByIdAndUpdate(
       req.params.id,
-      req.body,
-      { new: true }
+      body,
+      { new: true, runValidators: true }
     );
 
-    if (!programmeDay) {
+    if (!updated) {
       return res.status(404).json({
         success: false,
         message: "Programme day not found",
@@ -123,7 +136,7 @@ export const updateProgrammeDay = async (req: Request, res: Response) => {
 
     return res.status(200).json({
       success: true,
-      data: programmeDay,
+      data: updated,
     });
   } catch (error: any) {
     console.error("Programme Update Error:", error);
@@ -135,12 +148,12 @@ export const updateProgrammeDay = async (req: Request, res: Response) => {
   }
 };
 
-// ---------------------------------------------------------
-// DELETE PROGRAMME DAY
-// ---------------------------------------------------------
+/* =========================================================
+   DELETE PROGRAMME DAY
+   ========================================================= */
 export const deleteProgrammeDay = async (req: Request, res: Response) => {
   try {
-    const deleted = await Programme.findByIdAndDelete(req.params.id);
+    const deleted = await ProgrammeDayModel.findByIdAndDelete(req.params.id);
 
     if (!deleted) {
       return res.status(404).json({

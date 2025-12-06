@@ -1,34 +1,81 @@
-import { Schema, model, Document } from "mongoose";
+// src/models/ProgrammeDay.ts
+import mongoose, { Schema, Document, Model } from "mongoose";
 
-// ---------- INTERFACES ----------
-export interface IProgrammeItem {
-  time?: string; // optional because sessions may not have time
+/* ----------------------------------------------
+   Activity Subdocument
+   ---------------------------------------------- */
+export interface IActivity {
+  time: string;
   activity: string;
   facilitator?: string;
-  isSession?: boolean; // NEW: identify session blocks
 }
 
-export interface IProgrammeDay extends Document {
-  day: string;
-  date: string;
-  items: IProgrammeItem[];
+/* ----------------------------------------------
+   Session Subdocument
+   ---------------------------------------------- */
+export interface ISession {
+  title: string;
+  chair?: string;
+  activities: IActivity[];
 }
 
-// ---------- SCHEMAS ----------
-const ProgrammeItemSchema = new Schema<IProgrammeItem>({
-  time: { type: String }, // optional now
-  activity: { type: String, required: true },
-  facilitator: { type: String, default: "-" },
-  isSession: { type: Boolean, default: false }, // NEW FIELD
-});
+/* ----------------------------------------------
+   Programme Day (Root Document)
+   ---------------------------------------------- */
+export interface IProgrammeDay {
+  dayLabel: string; // e.g., "Day Two"
+  date: Date;       // stored as Date object (ISO string)
+  sessions: ISession[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
-const ProgrammeDaySchema = new Schema<IProgrammeDay>({
-  day: { type: String, required: true },
-  date: { type: String, required: true },
-  items: { type: [ProgrammeItemSchema], required: true },
-});
+/* ----------------------------------------------
+   Mongoose Document Type
+   ---------------------------------------------- */
+export interface ProgrammeDayDocument extends IProgrammeDay, Document {}
 
-// ---------- MODEL ----------
-const Programme = model<IProgrammeDay>("Programme", ProgrammeDaySchema);
+/* ----------------------------------------------
+   Activity Schema
+   ---------------------------------------------- */
+const ActivitySchema = new Schema<IActivity>(
+  {
+    time: { type: String, required: true },
+    activity: { type: String, required: true },
+    facilitator: { type: String, default: "" },
+  },
+  { _id: false }
+);
 
-export default Programme;
+/* ----------------------------------------------
+   Session Schema
+   ---------------------------------------------- */
+const SessionSchema = new Schema<ISession>(
+  {
+    title: { type: String, required: true },
+    chair: { type: String, default: "" },
+    activities: { type: [ActivitySchema], default: [] },
+  },
+  { _id: false }
+);
+
+/* ----------------------------------------------
+   Programme Day Schema
+   ---------------------------------------------- */
+const ProgrammeDaySchema = new Schema<ProgrammeDayDocument>(
+  {
+    dayLabel: { type: String, required: true },
+    date: { type: Date, required: true },
+    sessions: { type: [SessionSchema], default: [] },
+  },
+  { timestamps: true }
+);
+
+/* ----------------------------------------------
+   Model
+   ---------------------------------------------- */
+const ProgrammeDayModel: Model<ProgrammeDayDocument> =
+  mongoose.models.ProgrammeDay ||
+  mongoose.model<ProgrammeDayDocument>("ProgrammeDay", ProgrammeDaySchema);
+
+export default ProgrammeDayModel;
