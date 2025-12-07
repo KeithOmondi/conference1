@@ -47,26 +47,41 @@ export const createPresentation = async (req: Request, res: Response) => {
 };
 
 // -------------------------------------------------------------
-// GET ALL — Admin sees all presentations
+// GET ALL — Admin + Judge can view all presentations
 // -------------------------------------------------------------
 export const getAllPresentations = async (req: Request, res: Response) => {
   try {
-    if (!req.user || req.user.role !== "admin") {
-      return res.status(403).json({ status: "fail", message: "Only admins can view all presentations." });
+    // Require logged-in user
+    if (!req.user) {
+      return res.status(401).json({
+        status: "fail",
+        message: "Unauthorized",
+      });
+    }
+
+    // Allow both admin and judge
+    if (req.user.role !== "admin" && req.user.role !== "judge") {
+      return res.status(403).json({
+        status: "fail",
+        message: "You do not have permission to view presentations.",
+      });
     }
 
     const presentations = await Presentation.find()
       .populate("presenter", "firstName lastName email pj")
       .populate("uploadedBy", "firstName lastName email");
 
-    return res.json({
+    return res.status(200).json({
       status: "success",
       presentations,
     });
   } catch (error: any) {
-    return res.status(500).json({ status: "error", message: error.message });
+    return res
+      .status(500)
+      .json({ status: "error", message: error.message });
   }
 };
+
 
 // -------------------------------------------------------------
 // GET MINE — Judge sees only their presentations
