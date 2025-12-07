@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Presentation from "../models/Presentation";
 import User from "../models/User";
+import cloudinary from "../config/cloudinary";
 
 interface AuthRequest extends Request {
   user?: any;
@@ -217,6 +218,45 @@ export const deletePresentation = async (req: Request, res: Response) => {
       message: "Presentation removed successfully.",
     });
   } catch (error: any) {
+    return res.status(500).json({ status: "error", message: error.message });
+  }
+};
+
+// -------------------------------------------------------------
+// GET SIGNED DOWNLOAD URL — Only authorized users
+// -------------------------------------------------------------
+export const getPresentationDownloadUrl = async (req: AuthRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    if (!req.user) {
+      return res.status(401).json({ status: "fail", message: "Unauthorized" });
+    }
+
+    const presentation = await Presentation.findById(id);
+    if (!presentation) {
+      return res.status(404).json({ status: "fail", message: "Presentation not found." });
+    }
+
+    // Only admin or assigned presenter can download
+    if (req.user.role === "judge" && presentation.presenter.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ status: "fail", message: "You cannot download this presentation." });
+    }
+
+    // Extract Cloudinary public ID from URL
+    const publicId = presentation.fileUrl
+      .split("/upload/")[1]
+      .split(".")[0]; // e.g., presentations/INFO_NOTE-In
+
+    const signedUrl = cloudinary.url(publicId, {
+      type: "authenticated",
+      sign_url: true,
+      expires_at: Math.floor(Date.now() / 1000) + 3600, // 1 hour
+    });
+
+    return res.status(200).json({ status: "success", url: signedUrl });
+  } catch (error: any) {
+    console.error("Download URL error:", error);
     return res.status(500).json({ status: "error", message: error.message });
   }
 };
