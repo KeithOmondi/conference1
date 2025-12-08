@@ -6,8 +6,8 @@ import {
   getDocumentById,
   deleteDocument,
 } from "../controllers/documentController";
-import parser from "../middlewares/multer";
 import { protect, restrictTo } from "../middlewares/authMiddleware";
+import { parser } from "../middlewares/multer";
 
 const router = express.Router();
 

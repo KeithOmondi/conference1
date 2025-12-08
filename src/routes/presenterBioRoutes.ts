@@ -1,6 +1,6 @@
 import { Router } from "express";
 import PresenterBioController from "../controllers/PresenterBioController";
-import parser from "../middlewares/multer";
+import { parser } from "../middlewares/multer";
 
 const router = Router();
 

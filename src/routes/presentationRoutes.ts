@@ -9,7 +9,7 @@ import {
   getPresentationDownloadUrl,
 } from "../controllers/PresentationController";
 import { protect, restrictTo } from "../middlewares/authMiddleware";
-import parser from "../middlewares/multer";
+import { parser } from "../middlewares/multer";
 
 const router = express.Router();
 

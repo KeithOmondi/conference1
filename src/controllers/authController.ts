@@ -3,8 +3,6 @@ import { Request, Response } from "express";
 import User from "../models/User";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken";
-import { sendMail } from "../utils/sendMail";
-import { generateWelcomeEmail } from "../utils/emailTemplates";
 
 
 // LOGIN WITH PJ — OPTIMIZED FOR PRODUCTION
@@ -46,20 +44,7 @@ export const login = async (req: Request, res: Response) => {
       },
     });
 
-    // 5. Send welcome email asynchronously
-    if (user.email) {
-      process.nextTick(() => {
-        const subject = `Hello ${user.name}, Welcome to the High Court Annual Summit 2025.`;
-
-        sendMail({
-          to: user.email,
-          subject,
-          html: generateWelcomeEmail(user),
-        }).catch((err) => {
-          console.error("Email sending failed:", err);
-        });
-      });
-    }
+    
 
   } catch (err) {
     console.error("Login error:", err);
