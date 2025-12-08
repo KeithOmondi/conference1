@@ -1,9 +1,8 @@
-// src/routes/documentRoutes.ts
 import express from "express";
 import {
   uploadDocument,
   getAllDocuments,
-  getDocumentById,
+  getDocumentUrl,
   deleteDocument,
 } from "../controllers/documentController";
 import { protect, restrictTo } from "../middlewares/authMiddleware";
@@ -11,7 +10,8 @@ import { parser } from "../middlewares/multer";
 
 const router = express.Router();
 
-// Admin-only upload
+// ------------------ ADMIN ONLY ------------------
+// Upload a document
 router.post(
   "/upload",
   protect,
@@ -20,11 +20,17 @@ router.post(
   uploadDocument
 );
 
-// Public access
-router.get("/get", getAllDocuments);
-router.get("/get/:id", getDocumentById);
-
-// Admin-only delete
+// Delete a document
 router.delete("/delete/:id", protect, restrictTo("admin"), deleteDocument);
+
+// ------------------ PUBLIC OR PROTECTED ------------------
+// Get all documents (metadata only)
+router.get("/get", getAllDocuments);
+
+// Get single document metadata
+//router.get("/get/:id", getDocumentById);
+
+// ------------------ SIGNED URL (AUTH REQUIRED) ------------------
+router.get("/url/:id", protect, getDocumentUrl);
 
 export default router;
