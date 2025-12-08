@@ -1246,7 +1246,21 @@ export const judgesData = [
     img: "https://highcourt.judiciary.go.ke/wp-content/uploads/2025/07/rhc-website-1024x1024.png",
     password: "34253",
   },
+  {
+    pj: "12345",
+    lastName: "High Court",
+    firstName: "Hon. Office of the",
+    otherNames: "Registrar",
+    gender: "ORHC",
+    email: "registrarhighcourt2015@gmail.com",
+    phone: "",
+    idno: "",
+    station: "ORHC",
+    img: "https://highcourt.judiciary.go.ke/wp-content/uploads/2025/07/rhc-website-1024x1024.png",
+    password: "12345",
+  },
 ];
+
 
 const seedJudges = async () => {
   try {
