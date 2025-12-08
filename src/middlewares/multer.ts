@@ -1,21 +1,17 @@
-// src/middlewares/parser.ts (or wherever your multer setup is)
-
+// src/middlewares/multer.ts
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "../config/cloudinary";
 
-// Cloudinary storage
+// Storage for documents
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: async (req, file) => {
-    return {
-      folder: "presentations", // folder in Cloudinary
-      // FIX: Add access_mode: 'public' to ensure the uploaded file can be accessed via a public URL
-      access_mode: "public",
-      format: file.mimetype === "application/pdf" ? "pdf" : "png", // dynamically set format
-      public_id: `${Date.now()}-${file.originalname}`, // unique filename
-    };
-  },
+  params: async (req, file) => ({
+    folder: "documents",           // Folder in Cloudinary
+    access_mode: "public",         // Public URL
+    format: file.mimetype === "application/pdf" ? "pdf" : "png",
+    public_id: `${Date.now()}-${file.originalname}`, // unique filename
+  }),
 });
 
 const parser = multer({

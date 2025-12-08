@@ -1,6 +1,6 @@
 // src/config/cloudinary.ts
 import { v2 as cloudinary } from "cloudinary";
-import { env } from "./env";
+import { env } from "./env"; // your env loader
 
 cloudinary.config({
   cloud_name: env.CLOUDINARY_CLOUD_NAME,

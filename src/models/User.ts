@@ -8,9 +8,10 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  pj: string; // NEW: login identifier
+  pj: string;
   station?: string;
   role: "judge" | "admin";
+  img?: string; // ✅ add image field
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -34,7 +35,7 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
       unique: true,
-      index: true, // 🚀 critical for fast login
+      index: true,
       trim: true,
     },
 
@@ -54,6 +55,12 @@ const userSchema = new Schema<IUser>(
       type: String,
       enum: ["judge", "admin"],
       default: "judge",
+    },
+
+    img: {
+      type: String,
+      trim: true,
+      default: "", // optional but useful to avoid null issues
     },
   },
   { timestamps: true }

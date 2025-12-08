@@ -18,4 +18,7 @@ export const env = {
   SMTP_PORT: process.env.SMTP_PORT || "",
   SMTP_USER: process.env.SMTP_USER || "",
   SMTP_PASS: process.env.SMTP_PASS || "",
+
+  SENDER_EMAIL: process.env.SENDER_EMAIL || "",
+  RESEND_API_KEY: process.env.RESEND_API_KEY || "",
 };

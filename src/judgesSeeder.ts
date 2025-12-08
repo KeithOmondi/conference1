@@ -16,7 +16,7 @@ export const judgesData = [
     phone: "0722 280 058",
     idNo: "8781595",
     station: "Principal Judge, Milimani Family Division",
-    img: "https://example.com/images/55940.jpg",
+    img: "https://judiciary.go.ke/wp-content/uploads/2023/09/F5WNvVZXwAA9jbE-1024x683.jpg",
   },
   {
     pj: "56001",
@@ -28,7 +28,7 @@ export const judgesData = [
     phone: "0722 428 139",
     idNo: "7476305",
     station: "Bomet",
-    img: "https://example.com/images/56001.jpg",
+    img: "http://highcourt.judiciary.go.ke/wp-content/uploads/2024/11/Hon.-Lady-Justice-Roseline-C.-Lagat-Korir.jpg",
   },
   {
     pj: "14009",
@@ -40,7 +40,7 @@ export const judgesData = [
     phone: "0722 522 828",
     idNo: "2246656",
     station: "Bungoma",
-    img: "https://example.com/images/14009.jpg",
+    img: "http://highcourt.judiciary.go.ke/wp-content/uploads/2024/11/Hon.-Lady-Justice-Rose-Edwina-Atieno-Ougo.jpg",
   },
   {
     pj: "33095",
@@ -52,7 +52,7 @@ export const judgesData = [
     phone: "0724 787 088",
     idNo: "9778440",
     station: "Bungoma",
-    img: "https://example.com/images/33095.jpg",
+    img: "http://highcourt.judiciary.go.ke/wp-content/uploads/2024/11/Hon.-Mr.-Justice-David-Kipyegomen-Kemei.jpg",
   },
   {
     pj: "59326",
@@ -64,7 +64,7 @@ export const judgesData = [
     phone: "0722 499 025",
     idNo: "8365136",
     station: "Busia",
-    img: "https://example.com/images/59326.jpg",
+    img: "https://judiciary.go.ke/wp-content/uploads/2024/05/Hon.-Mr.-Justice-Musyoka-William-Musya.png",
   },
   {
     pj: "12926",
@@ -76,7 +76,7 @@ export const judgesData = [
     phone: "0721 446 084",
     idNo: "5482714",
     station: "Chuka",
-    img: "https://example.com/images/12926.jpg",
+    img: "https://judiciary.go.ke/wp-content/uploads/2024/05/Hon.-Lady-Justice-Lucy-Waruguru-Gitari.png",
   },
   {
     pj: "14978",
@@ -88,7 +88,7 @@ export const judgesData = [
     phone: "0722 484 334",
     idNo: "2760750",
     station: "Eldoret",
-    img: "https://example.com/images/14978.jpg",
+    img: "https://judiciary.go.ke/wp-content/uploads/2024/05/Hon-Justice-Reuben-Nyakundi.jpg",
   },
   {
     pj: "81735",
@@ -100,7 +100,7 @@ export const judgesData = [
     phone: "0721 210 501",
     idNo: "13594591",
     station: "Eldoret",
-    img: "https://example.com/images/81735.jpg",
+    img: "http://highcourt.judiciary.go.ke/wp-content/uploads/2024/11/Hon.-Justice-John-Robert-Anuro-Wananda.jpg",
   },
   {
     pj: "19871",
@@ -112,7 +112,7 @@ export const judgesData = [
     phone: "0722756410",
     idNo: "",
     station: "Eldoret",
-    img: "https://example.com/images/19871.jpg",
+    img: "https://judiciary.go.ke/wp-content/uploads/2024/05/Hon.-Lady-Justice-Emily-Onyando-Ominde.png",
   },
   {
     pj: "65416",
@@ -124,7 +124,7 @@ export const judgesData = [
     phone: "0722 757 033",
     idNo: "8989124",
     station: "Embu",
-    img: "https://example.com/images/65416.jpg",
+    img: "http://highcourt.judiciary.go.ke/wp-content/uploads/2024/11/Hon.-Lady-Justice-Lucy-Njuguna.jpg",
   },
   {
     pj: "20424",
@@ -136,7 +136,7 @@ export const judgesData = [
     phone: "0722 359 542",
     idNo: "5948626",
     station: "Garissa",
-    img: "https://example.com/images/20424.jpg",
+    img: "http://highcourt.judiciary.go.ke/wp-content/uploads/2024/11/Judge-Onyiego.jpeg",
   },
   {
     pj: "14960",
@@ -148,7 +148,7 @@ export const judgesData = [
     phone: "0722 600 129",
     idNo: "5302738",
     station: "Homabay",
-    img: "https://example.com/images/14960.jpg",
+    img: "http://highcourt.judiciary.go.ke/wp-content/uploads/2024/11/Hon.-Justice-Kiarie-Waweru-Kiarie.jpg",
   },
   {
     pj: "20369",
@@ -160,7 +160,7 @@ export const judgesData = [
     phone: "0733 846 414",
     idNo: "7030464",
     station: "Isiolo",
-    img: "https://example.com/images/20369.jpg",
+    img: "http://highcourt.judiciary.go.ke/wp-content/uploads/2024/11/Hon.-Lady-Justice-Cherere-Thripsisa-Wanjiku-Wamae.jpg",
   },
   {
     pj: "20880",
@@ -172,7 +172,7 @@ export const judgesData = [
     phone: "0722 666 734",
     idNo: "9836966",
     station: "Kabarnet",
-    img: "https://example.com/images/20880.jpg",
+    img: "https://judiciary.go.ke/wp-content/uploads/2024/05/JUSTICE-RACHEL-C.-BIOMNDO-NGETICH.jpg",
   },
   {
     pj: "16425",
@@ -184,7 +184,7 @@ export const judgesData = [
     phone: "0727 804 154",
     idNo: "2303343",
     station: "Kajiado",
-    img: "https://example.com/images/16425.jpg",
+    img: "http://highcourt.judiciary.go.ke/wp-content/uploads/2024/11/Hon.-Lady-Justice-Stella-Ngali-Mutuku.jpg",
   },
   {
     pj: "20775",
@@ -1206,6 +1206,45 @@ export const judgesData = [
     station: "High Court",
     img: "https://highcourt.judiciary.go.ke/wp-content/uploads/2025/07/rhc-website-1024x1024.png",
     password: "43211",
+  },
+   {
+    pj: "40149",
+    lastName: "",
+    firstName: "Hon. Terry",
+    otherNames: "Odera",
+    gender: "FEMALE",
+    email: "oderaterry@yahoo.com",
+    phone: "",
+    idno: "",
+    station: "Kisii",
+    img: "https://highcourt.judiciary.go.ke/wp-content/uploads/2025/07/rhc-website-1024x1024.png",
+    password: "40149",
+  },
+  {
+    pj: "40149",
+    lastName: "",
+    firstName: "Hon. Terry",
+    otherNames: "Odera",
+    gender: "FEMALE",
+    email: "oderaterry@yahoo.com",
+    phone: "",
+    idno: "",
+    station: "Kisii",
+    img: "https://highcourt.judiciary.go.ke/wp-content/uploads/2025/07/rhc-website-1024x1024.png",
+    password: "40149",
+  },
+  {
+    pj: "34253",
+    lastName: "",
+    firstName: "Hon. Francis",
+    otherNames: "Andanyi",
+    gender: "MALE",
+    email: "francis.andanyi@court.go.ke",
+    phone: "",
+    idno: "",
+    station: "Kwale High Court",
+    img: "https://highcourt.judiciary.go.ke/wp-content/uploads/2025/07/rhc-website-1024x1024.png",
+    password: "34253",
   },
 ];
 

@@ -1,5 +1,7 @@
-import nodemailer from "nodemailer";
-import { env } from "../config/env";
+// utils/sendMail.ts
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export const sendMail = async ({
   to,
@@ -11,25 +13,17 @@ export const sendMail = async ({
   html: string;
 }) => {
   try {
-    const transporter = nodemailer.createTransport({
-      host: env.SMTP_HOST,
-      port: Number(env.SMTP_PORT),
-      secure: false,
-      auth: {
-        user: env.SMTP_USER,
-        pass: env.SMTP_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Office of the Registrar High Court" <${env.SMTP_USER}>`,
+    const response = await resend.emails.send({
+      from: process.env.SENDER_EMAIL!, // e.g. no-reply@yourdomain.com
       to,
       subject,
       html,
     });
 
-    console.log("Email sent to:", to);
-  } catch (err) {
-    console.error("sendMail error:", err);
+    console.log("Email sent:", response);
+    return response;
+  } catch (error) {
+    console.error("Email sending failed:", error);
+    return null;
   }
 };

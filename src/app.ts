@@ -6,6 +6,7 @@ import programmesRoutes from "./routes/programRoutes";
 import presenterRoutes from "./routes/presenterRoutes";
 import presentationRoutes from "./routes/presentationRoutes"
 import presenterBioRoutes from "./routes/presenterBioRoutes";
+import documentsBioRoutes from "./routes/documentRoutes"
 
 const app: Application = express();
 
@@ -42,6 +43,7 @@ app.use("/api/v1/programs", programmesRoutes);
 app.use("/api/v1/presenters", presenterRoutes);
 app.use("/api/v1/presentations", presentationRoutes);
 app.use("/api/v1/presenterbios", presenterBioRoutes);
+app.use("/api/v1/documents", documentsBioRoutes);
 
 
 // Test route
