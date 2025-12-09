@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import User from "./models/User";
 import bcrypt from "bcryptjs";
+import { env } from "./config/env";
 
 dotenv.config();
 
@@ -1264,7 +1265,7 @@ export const judgesData = [
 
 const seedJudges = async () => {
   try {
-    const mongoUri = process.env.MONGO_URI;
+    const mongoUri = env.MONGO_URI;
     if (!mongoUri) throw new Error("MONGO_URI missing in .env");
 
     await mongoose.connect(mongoUri);

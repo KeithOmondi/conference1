@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Documents from "../models/Documents";
 import cloudinary from "../config/cloudinary";
-import streamifier from "streamifier"; // make sure it's default import
+import streamifier from "streamifier";
 import { generateSignedPdfUrl } from "../utils/cloudinaryUtils";
 
 // ------------------ UPLOAD DOCUMENT (PRIVATE) ------------------
@@ -14,14 +14,13 @@ export const uploadDocument = async (req: Request, res: Response) => {
     const file = req.file;
     const originalName = file.originalname.replace(/\.[^/.]+$/, "");
 
-    // Upload stream to Cloudinary (private)
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder: "documents",
         public_id: originalName,
-        resource_type: "raw",      // PDFs/docs
+        resource_type: "raw",
         format: "pdf",
-        type: "authenticated",     // private URL
+        type: "authenticated",
         access_mode: "authenticated",
       },
       async (error, result) => {
@@ -35,7 +34,7 @@ export const uploadDocument = async (req: Request, res: Response) => {
           description: req.body.description,
           presenter: req.body.presenter,
           category: req.body.category,
-          fileUrl: result?.public_id, // store public_id instead of secure URL
+          fileUrl: result?.public_id,
           fileType: file.mimetype,
           fileSize: file.size,
           originalName: file.originalname,
@@ -69,11 +68,33 @@ export const getAllDocuments = async (_req: Request, res: Response) => {
   }
 };
 
-// ------------------ GET SIGNED DOCUMENT URL ------------------
+// ------------------ GET SINGLE DOCUMENT (INCREASE VIEW COUNT) ------------------
+export const getDocumentById = async (req: Request, res: Response) => {
+  try {
+    const doc = await Documents.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { viewCount: 1 } }, // Auto increment views
+      { new: true }
+    ).populate("presenter", "firstName lastName email role");
+
+    if (!doc) return res.status(404).json({ message: "Document not found" });
+
+    res.status(200).json({ document: doc });
+  } catch (err) {
+    console.error("Get Document Error:", err);
+    res.status(500).json({ message: "Failed to get document" });
+  }
+};
+
+// ------------------ GET SIGNED DOCUMENT URL (INCREASE DOWNLOAD COUNT) ------------------
 export const getDocumentUrl = async (req: Request, res: Response) => {
   try {
     const doc = await Documents.findById(req.params.id);
     if (!doc) return res.status(404).json({ message: "Document not found" });
+
+    // Increment download counter
+    doc.downloadCount += 1;
+    await doc.save();
 
     // Generate signed URL valid for 10 minutes
     const signedUrl = generateSignedPdfUrl(doc.fileUrl, 600);
@@ -91,8 +112,11 @@ export const deleteDocument = async (req: Request, res: Response) => {
     const doc = await Documents.findByIdAndDelete(req.params.id);
     if (!doc) return res.status(404).json({ message: "Document not found" });
 
-    // Optionally delete from Cloudinary
-    await cloudinary.uploader.destroy(doc.fileUrl, { resource_type: "raw", type: "authenticated" });
+    // Remove from Cloudinary
+    await cloudinary.uploader.destroy(doc.fileUrl, {
+      resource_type: "raw",
+      type: "authenticated",
+    });
 
     res.status(200).json({ message: "Document deleted successfully" });
   } catch (err) {

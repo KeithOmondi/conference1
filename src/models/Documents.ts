@@ -4,15 +4,18 @@ import mongoose, { Schema, Document as MongooseDocument } from "mongoose";
 export interface IDocument extends MongooseDocument {
   title: string;
   description?: string;
-  fileUrl: string; // URL to the uploaded file (S3, Cloudinary, local, etc.)
-  fileType?: string; // pdf, docx, pptx, image, etc.
-  fileSize?: number; // in bytes
-  originalName?: string; // original filename from uploader
+  fileUrl: string;
+  fileType?: string;
+  fileSize?: number;
+  originalName?: string;
 
-  presenter: mongoose.Types.ObjectId; // who owns it
-  category?: string; // slides, research, judgement, notes...
+  presenter: mongoose.Types.ObjectId;
+  category?: string;
 
   isArchived?: boolean;
+
+  viewCount: number;       // NEW
+  downloadCount: number;   // NEW
 
   createdAt: Date;
   updatedAt: Date;
@@ -53,7 +56,7 @@ const DocumentSchema = new Schema<IDocument>(
 
     presenter: {
       type: Schema.Types.ObjectId,
-      ref: "User", // or "Presenter" depending on your project
+      ref: "User",
       required: false,
     },
 
@@ -67,13 +70,26 @@ const DocumentSchema = new Schema<IDocument>(
       type: Boolean,
       default: false,
     },
+
+    // -----------------------------------------
+    // NEW FIELDS
+    // -----------------------------------------
+    viewCount: {
+      type: Number,
+      default: 0,
+    },
+
+    downloadCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-// Optional indexes for faster searches
+// Optional indexes
 DocumentSchema.index({ presenter: 1 });
 DocumentSchema.index({ category: 1 });
 

@@ -22,11 +22,6 @@ const presentationSchema = new Schema<IPresentation>(
       trim: true,
     },
 
-    fileUrl: {
-      type: String,
-      required: true,
-    },
-
     presenter: {
       type: Schema.Types.ObjectId,
       ref: "User",
